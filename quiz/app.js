@@ -4,30 +4,35 @@ const sections = [
     numeral: "壹",
     title: "事件与证据",
     description: "先确认时间线、数字和关键动作。共 5 题，每题 3 分。",
+    tagline: "先把发生过的事钉牢，再谈它意味着什么。",
   },
   {
     id: "craft",
     numeral: "贰",
     title: "文笔与修辞",
     description: "辨认白描、列数字、反复、照应、对比与留白。共 5 题，每题 4 分。",
+    tagline: "把镜头放慢，去看一句话怎样留下余震。",
   },
   {
     id: "society",
     numeral: "叁",
     title: "人物与社会结构",
     description: "讨论亲密关系、劳动、阶级差异和叙述视角。共 5 题，每题 4 分。",
+    tagline: "当浪漫需要很多人劳动，人物关系就有了重量。",
   },
   {
     id: "ai",
     numeral: "肆",
     title: "AI 与真实性",
     description: "区分机器建议、叙事责任、文本证据与现实结论。共 4 题，每题 5 分。",
+    tagline: "机器给出答案，人仍要为选择负责。",
   },
   {
     id: "business",
     numeral: "伍",
     title: "传播与商业价值",
     description: "从话题热度推到产品转化、资产波动与长期价值。共 5 题，每题 5 分。",
+    tagline: "热度会流向哪里，价值又会在哪一层停下？",
   },
 ];
 
@@ -217,6 +222,7 @@ const completionCopy = document.querySelector("#completion-copy");
 const resumeButton = document.querySelector("#resume-button");
 const printAnswerKey = document.querySelector("#print-answer-key");
 let currentQuestionIndex = 0;
+let sectionIntroVisible = !printMode;
 
 function loadAnswers() {
   try {
@@ -308,9 +314,41 @@ function renderCurrentQuestion(focus = false) {
   }
 }
 
+function renderSectionIntro() {
+  const section = sections.find((item) => item.id === questions[currentQuestionIndex].section);
+  const sectionIndex = sections.indexOf(section);
+  const sectionQuestions = questions.filter((question) => question.section === section.id);
+  const firstQuestion = questions.indexOf(sectionQuestions[0]) + 1;
+  const lastQuestion = questions.indexOf(sectionQuestions.at(-1)) + 1;
+  const backButton = currentQuestionIndex > 0
+    ? '<button class="section-gate-back" type="button" data-action="section-back">← 返回上一题</button>'
+    : '<span class="section-gate-spacer" aria-hidden="true"></span>';
+
+  sectionRoot.innerHTML = `
+    <section class="section-gate" aria-live="polite" aria-labelledby="section-gate-title">
+      <div class="section-gate-number" aria-hidden="true">${section.numeral}</div>
+      <div class="section-gate-copy">
+        <p class="section-gate-kicker">LEVEL ${String(sectionIndex + 1).padStart(2, "0")} / ${String(sections.length).padStart(2, "0")}</p>
+        <p class="section-gate-range">QUESTION ${String(firstQuestion).padStart(2, "0")} - ${String(lastQuestion).padStart(2, "0")}</p>
+        <h2 id="section-gate-title">${section.title}</h2>
+        <p class="section-gate-tagline">${escapeHTML(section.tagline)}</p>
+        <p class="section-gate-description">${escapeHTML(section.description)}</p>
+        <div class="section-gate-actions">
+          ${backButton}
+          <button class="section-gate-enter" type="button" data-action="enter-section">开始这一层 <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </section>`;
+}
+
 function renderQuestions(focus = false) {
+  quiz.classList.toggle("showing-section-gate", !printMode && sectionIntroVisible);
   if (printMode) {
     renderAllQuestions();
+    return;
+  }
+  if (sectionIntroVisible) {
+    renderSectionIntro();
     return;
   }
   renderCurrentQuestion(focus);
@@ -363,6 +401,7 @@ function showQuiz({ resume = false } = {}) {
     const firstUnanswered = questions.findIndex((question) => !answers[question.id]?.length);
     currentQuestionIndex = firstUnanswered === -1 ? questions.length - 1 : firstUnanswered;
   }
+  sectionIntroVisible = true;
   renderQuestions(true);
   updateProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -433,6 +472,7 @@ function resetQuiz() {
   Object.keys(answers).forEach((key) => delete answers[key]);
   localStorage.removeItem(STORAGE_KEY);
   currentQuestionIndex = 0;
+  sectionIntroVisible = true;
   renderQuestions();
   updateProgress();
 }
@@ -448,14 +488,30 @@ sectionRoot.addEventListener("click", (event) => {
   const button = event.target.closest("[data-action]");
   if (!button) return;
   const action = button.dataset.action;
+  if (action === "enter-section") {
+    sectionIntroVisible = false;
+    renderQuestions(true);
+    updateProgress();
+    returnToQuestionTop();
+  }
+  if (action === "section-back" && currentQuestionIndex > 0) {
+    currentQuestionIndex -= 1;
+    sectionIntroVisible = false;
+    renderQuestions(true);
+    updateProgress();
+    returnToQuestionTop();
+  }
   if (action === "previous" && currentQuestionIndex > 0) {
     currentQuestionIndex -= 1;
+    sectionIntroVisible = false;
     renderQuestions(true);
     updateProgress();
     returnToQuestionTop();
   }
   if (action === "next" && currentQuestionIndex < questions.length - 1) {
+    const currentSection = questions[currentQuestionIndex].section;
     currentQuestionIndex += 1;
+    sectionIntroVisible = questions[currentQuestionIndex].section !== currentSection;
     renderQuestions(true);
     updateProgress();
     returnToQuestionTop();
@@ -502,7 +558,7 @@ document.querySelector("#restart-button").addEventListener("click", () => {
 });
 
 document.querySelector("#copy-button").addEventListener("click", async (event) => {
-  const text = `《我的女友景甜》互动阅读测验：${results.dataset.score} 分，等级「${results.dataset.level}」。你到底有多了解孙哥？`;
+  const text = `《我的女友景甜》互动读懂测试：${results.dataset.score} 分，等级「${results.dataset.level}」。你有没有读懂孙哥？`;
   try {
     await navigator.clipboard.writeText(text);
   } catch {
