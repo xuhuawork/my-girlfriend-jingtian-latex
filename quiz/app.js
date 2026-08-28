@@ -2,201 +2,209 @@ const sections = [
   {
     id: "detail",
     numeral: "壹",
-    title: "文本细读",
-    description: "先确认事实，再进入解释。共 8 题，每题 4 分。",
+    title: "事件与证据",
+    description: "先确认时间线、数字和关键动作。共 5 题，每题 3 分。",
   },
   {
     id: "craft",
     numeral: "贰",
-    title: "结构与语言",
-    description: "关注白描、数字锚定、物件回调、对照与留白。共 6 题，每题 4 分。",
+    title: "文笔与修辞",
+    description: "辨认白描、列数字、反复、照应、对比与留白。共 5 题，每题 4 分。",
   },
   {
-    id: "theme",
+    id: "society",
     numeral: "叁",
-    title: "人物与主题",
-    description: "讨论金钱、亲密关系、劳动与 AI 决策。共 6 题，每题 4 分。",
+    title: "人物与社会结构",
+    description: "讨论亲密关系、劳动、阶级差异和叙述视角。共 5 题，每题 4 分。",
   },
   {
-    id: "multiple",
+    id: "ai",
     numeral: "肆",
-    title: "复合判断",
-    description: "每题有多个正确选项，须全部选对且无多选。共 4 题，每题 5 分。",
+    title: "AI 与真实性",
+    description: "区分机器建议、叙事责任、文本证据与现实结论。共 4 题，每题 5 分。",
+  },
+  {
+    id: "business",
+    numeral: "伍",
+    title: "传播与商业价值",
+    description: "从话题热度推到产品转化、资产波动与长期价值。共 5 题，每题 5 分。",
   },
 ];
 
 const questions = [
   {
-    id: "q01", section: "detail", type: "single", points: 4,
+    id: "q01", section: "detail", type: "single", points: 3,
     prompt: "文章开篇把哪两种重量并置在一起？",
     options: ["一颗卵子与五千万美元现金", "一枚钻戒与一架飞机", "一张照片与一本调查材料", "三十卷胶带与一箱促排针"],
     answer: [0],
     explanation: "两种重量把生育、金钱与亲密关系同时放进可计算的尺度中，也为全文确立了冷峻的叙事基调。",
   },
   {
-    id: "q02", section: "detail", type: "single", points: 4,
+    id: "q02", section: "detail", type: "single", points: 3,
+    prompt: "下列事件按文中时间顺序排列，正确的是哪一项？",
+    options: ["买一百五十元羽绒服→保存 QQ 图片→第一次见面→向 Claude 提问", "保存 QQ 图片→买一百五十元羽绒服→第一次见面→向 Claude 提问", "第一次见面→保存 QQ 图片→向 Claude 提问→买羽绒服", "保存 QQ 图片→第一次见面→买羽绒服→向 Claude 提问"],
+    answer: [1],
+    explanation: "2007 年保存 QQ 图片，2011 年买羽绒服，此后才有现实相见与关键电话中的 Claude 决策。时间线让十九年的投射与现实关系形成纵深。",
+  },
+  {
+    id: "q03", section: "detail", type: "single", points: 3,
     prompt: "蒙太奇拉古纳海滩的一层酒店被包下三十天，实际住了多少天？",
     options: ["三天", "八天", "十四天", "二十二天"],
     answer: [1],
     explanation: "她住了八天，余下二十二天仍有清洁工照常整理空房。",
   },
   {
-    id: "q03", section: "detail", type: "single", points: 4,
-    prompt: "叙述者在校内网好友申请里最终写下了什么？",
-    options: ["认识一下", "我是你的影迷", "你好", "可以通过吗"],
-    answer: [2],
-    explanation: "他反复删改约四十分钟，最后只发出“你好”，申请没有通过。",
-  },
-  {
-    id: "q04", section: "detail", type: "single", points: 4,
-    prompt: "2011 年一百五十元的羽绒服与一亿五千万元的电影并置，主要形成什么效果？",
-    options: ["交代两人审美完全一致", "凸显早年生活处境与娱乐工业规模的落差", "证明叙述者当时已经投资电影", "说明电影预算来自服装销售"],
-    answer: [1],
-    explanation: "相似的数字单位跨越巨大，个人生活与娱乐工业由此发生尖锐对照。",
-  },
-  {
-    id: "q05", section: "detail", type: "single", points: 4,
-    prompt: "两人第一次见面后去看的卡特兰香蕉，文中标价是多少？",
-    options: ["六十二万美元", "六百二十万美元", "六千二百万美元", "一亿五千万美元"],
-    answer: [1],
-    explanation: "香蕉标价六百二十万美元，“它烂了怎么办”的提问让价格与物的消逝形成反差。",
-  },
-  {
-    id: "q06", section: "detail", type: "single", points: 4,
+    id: "q04", section: "detail", type: "single", points: 3,
     prompt: "为了清空放映厅，当天共有多少名观众领钱离开？",
     options: ["十一人", "二十六人", "三十人", "四十六人"],
     answer: [1],
-    explanation: "文中明确写到二十六个人领钱，其中包含一对带孩子的夫妻。",
+    explanation: "文中明确写到二十六个人领钱离开，其中包括一对带孩子的夫妻。这个人数让私人浪漫背后的公共成本变得可见。",
   },
   {
-    id: "q07", section: "detail", type: "single", points: 4,
-    prompt: "关于抛磨指甲，女方特别提醒的操作原则是什么？",
-    options: ["只磨中间", "先用水浸泡", "最后一面顺着一个方向磨", "每天更换工具"],
+    id: "q05", section: "detail", type: "single", points: 3,
+    prompt: "结尾哪个细节直接回扣了前文的磨甲教学？",
+    options: ["QQ 图片越来越模糊", "胶带痕需要换整块玻璃", "叙述者剪完指甲后发现边缘仍是尖的", "飞机把多余燃油放掉"],
     answer: [2],
-    explanation: "这一动作后来被叙述者遗忘，成为关系中“没有学会的照顾”的具体象征。",
+    explanation: "“我的指甲现在还是磨人的”把一项曾经被教过、却始终没有学会的照顾带回结尾。",
   },
   {
-    id: "q08", section: "detail", type: "single", points: 4,
-    prompt: "叙述者一面保存四十多页调查材料，一面说全部相信她，紧接着又说一个字也不信。这组表述最能说明什么？",
-    options: ["材料已经被证实全部错误", "他在亲密、控制与猜疑之间持续分裂", "女方主动要求他进行调查", "叙述者已经忘记材料内容"],
-    answer: [1],
-    explanation: "相邻句子的自我抵牾暴露了关系里的信任表演、控制欲与内在猜疑。",
-  },
-  {
-    id: "q09", section: "craft", type: "single", points: 4,
+    id: "q06", section: "craft", type: "single", points: 4,
     prompt: "第八天的电话只写“让我想想”“她没有说话”“我听见她那边有海”“好”。这种写法为什么有力量？",
     options: ["它直接说明女方已经彻底绝望", "它省去心理判断，让短句、停顿和海声共同完成拒绝场面", "它加快情节并暗示两人很快和好", "它主要用于证明电话信号不稳定"],
     answer: [1],
     explanation: "这是克制的白描。作者没有替人物宣布悲伤，只保留对话、十一秒停顿和海声，让读者从可感知的细节中抵达情绪。",
   },
   {
-    id: "q10", section: "craft", type: "single", points: 4,
+    id: "q07", section: "craft", type: "single", points: 4,
     prompt: "三点五微克与两点五吨、一百五十元与一亿五千万元、八天与二十二天空房，这些精确数字共同承担什么作用？",
     options: ["组成一份可以核销的消费清单", "为叙事钉下具体尺度，并用冷静比例制造生命、金钱与处境的反差", "证明文中每项材料都经过司法核验", "削弱人物关系在全文中的重要性"],
     answer: [1],
     explanation: "数字既是事实锚点，也是情绪装置。它们把巨大落差变成可比较的尺度，语气越冷静，反差越锋利。",
   },
   {
-    id: "q11", section: "craft", type: "single", points: 4,
+    id: "q08", section: "craft", type: "single", points: 4,
     prompt: "“我说好”反复出现，到关键电话里第一次变成“让我想想”。这一变化最准确的理解是？",
     options: ["机械顺从的节奏突然中断，使真正的拒绝格外刺耳", "叙述者终于学会了更礼貌的表达", "女方已经忘记此前所有承诺", "故事由第一人称改成了第三人称"],
     answer: [0],
     explanation: "重复先建立自动响应般的关系节奏；一句“让我想想”打破惯性。真正的转折藏在句式变化里，无需额外宣告。",
   },
   {
-    id: "q12", section: "craft", type: "single", points: 4,
+    id: "q09", section: "craft", type: "single", points: 4,
     prompt: "磨甲器和“顺着一个方向磨”在前文出现，结尾又写“我的指甲现在还是磨人的”。这种首尾照应有何作用？",
     options: ["补充完整的磨甲教程", "让物件完成回调，把没有学会的照顾转化为延续至今的遗憾与自省", "证明磨甲器本身存在质量问题", "表示叙述者准备从事美甲行业"],
     answer: [1],
     explanation: "物件回调让抽象遗憾落到身体经验上。关系已经结束，那个没有学会的动作仍然留下后果。",
   },
   {
-    id: "q13", section: "craft", type: "single", points: 4,
-    prompt: "空置楼层、清空影院、过大的私人空间与“什么都没有发生”反复照应，形成了怎样的结构？",
-    options: ["空间越空，服务成本越低", "投入越巨大，人物的缺席与关系的空缺越清晰", "地点越遥远，两人越容易交流", "奢华场面能够自动修复误会"],
-    answer: [1],
-    explanation: "空间和句子共同制造回声：财富可以制造空场与隐私，也会把缺席放大。宏大动静最终落回空缺。",
+    id: "q10", section: "craft", type: "multiple", points: 4,
+    prompt: "“什么都没有发生”在电影、空房和关系中多次回返，它同时产生了哪些修辞效果？（多选）",
+    options: ["形成反复与结构回声", "把巨大投入同最终空缺并置", "带出克制的反讽", "证明前文事件全部虚假", "单纯承担时间过渡"],
+    answer: [0, 1, 2],
+    explanation: "反复、对比和反讽共同工作：资源调度越宏大，留下的空缺越清晰。句子没有取消事件，也不只承担转场。",
   },
   {
-    id: "q14", section: "craft", type: "single", points: 4,
+    id: "q11", section: "society", type: "single", points: 4,
     prompt: "关键电话末尾，称谓从“妈妈”重新变为“景甜”，这一细微变化意味着什么？",
     options: ["地点发生变化", "亲密角色停止运作，叙述距离骤然拉开", "叙述者临时忘记了称呼", "女方要求恢复全名"],
     answer: [1],
-    explanation: "称谓本身就是动作。回到名字，让关系的降温直接发生在语言表面，作者无需补写一段心理说明。",
+    explanation: "称谓本身就是关系动作。回到名字，亲密仪式在语言表面结束，人物之间重新出现距离。",
   },
   {
-    id: "q15", section: "theme", type: "single", points: 4,
-    prompt: "女方两次问“能来北京吗”，叙述者都沉默。这个细节更接近哪种含义？",
-    options: ["他没有听清地点", "他回避进入对方未说明的现实处境", "他已经订好北京行程", "北京在文中只是转机地点"],
-    answer: [1],
-    explanation: "沉默和“不问”持续并置，显示他能处理资源，却回避一个没有价格和明确说明的请求。",
+    id: "q12", section: "society", type: "multiple", points: 4,
+    prompt: "清洁工、贴胶带女孩、机组和助理被写得很具体，这条劳动线索揭示了什么？（多选）",
+    options: ["奢华体验依赖大量被遮蔽的劳动", "私人愿望会转化为他人的时间、体力和技术成本", "劳动者的具体动作让阶级差异可感", "所有服务人员都认同这段关系", "财富能够消除劳动关系"],
+    answer: [0, 1, 2],
+    explanation: "文本把抽象财富还原成劳动过程。被雇佣者是否认同关系，文中没有证据；财富调度了劳动，也保留了权力差异。",
   },
   {
-    id: "q16", section: "theme", type: "single", points: 4,
-    prompt: "全文对金钱能力的核心思考更接近哪一项？",
-    options: ["金钱能够购买空间、隐私与服务，却无法确保理解和陪伴", "金钱在关系中完全没有作用", "财富必然带来稳定婚姻", "消费规模决定情感深度"],
+    id: "q13", section: "society", type: "single", points: 4,
+    prompt: "全文对金钱能力的判断，最接近哪一项？",
+    options: ["金钱能购买空间、隐私和服务，却无法确保理解与陪伴", "金钱在亲密关系中毫无作用", "投入越高，感情越稳定", "消费规模可以直接衡量爱"],
     answer: [0],
-    explanation: "金钱在文中极其有效，也有清晰边界；它能调度世界，无法代替双方回应。",
+    explanation: "文中的金钱拥有强大执行力，也不断触及边界：它能清场、包楼和调动飞机，无法替双方完成理解与回应。",
   },
   {
-    id: "q17", section: "theme", type: "single", points: 4,
-    prompt: "叙述者如何解释自己长期不对女方说“不”？",
-    options: ["出于礼仪", "害怕下一秒得到的答案", "完全忘记拒绝方式", "担心助理反对"],
+    id: "q14", section: "society", type: "single", points: 4,
+    prompt: "女方两次问“能来北京吗”，叙述者都沉默。这个细节更接近哪种含义？",
+    options: ["他没有听清地点", "他回避进入对方没有明说、也无法用价格解决的现实处境", "他已经订好北京行程", "北京只是转机地点"],
     answer: [1],
-    explanation: "他把长期满足要求追溯到恐惧，人物由财富控制者转为害怕失去回应的人。",
+    explanation: "他擅长处理可计算的要求，却在一个含义不明的现实请求前保持沉默。人物的能力与情感局限在这里相撞。",
   },
   {
-    id: "q18", section: "theme", type: "single", points: 4,
-    prompt: "Claude 在关键决定中承担了什么叙事功能？",
-    options: ["替代财务 API 完成资产统计", "提供毫不迟疑的外部声音，促成拒绝并引出责任问题", "证明女方已经不再爱他", "自动向女方发送了拒绝消息"],
-    answer: [1],
-    explanation: "Claude 的确定性与人的迟疑形成对照；真正保持沉默的人仍是叙述者，责任没有消失。",
-  },
-  {
-    id: "q19", section: "theme", type: "single", points: 4,
-    prompt: "叙述者等待自己哭，却只数到稳定心跳。这段描写主要表现什么？",
-    options: ["身体非常健康", "失落后的情感迟滞、自我旁观与疏离", "他正在准备运动", "他已彻底忘记关系"],
-    answer: [1],
-    explanation: "他像医生检查别人一样检查自己，期待的悲伤没有按预想出现，疏离感由此增强。",
-  },
-  {
-    id: "q20", section: "theme", type: "single", points: 4,
-    prompt: "胶痕、额外燃油、未拆促排针、磨甲器和日程提醒集中出现在结尾，有何共同作用？",
-    options: ["提供消费报销清单", "让关系结束后的物质余波与未完成之事继续存在", "预告两人马上复合", "说明助理工作已经全部结束"],
-    answer: [1],
-    explanation: "这些物件保存关系的后果，情感缺席仍以账单、残痕和未完成动作延续。",
-  },
-  {
-    id: "q21", section: "multiple", type: "multiple", points: 5,
-    prompt: "下列哪些写法体现了本文的白描、数字锚定、物件回调或具象化叙事？（多选）",
-    options: ["用三点五微克与两点五吨建立跨尺度对照", "电话场面只写短句、沉默和海声，不替人物宣布悲伤", "磨甲器从教学细节回到结尾的自我刺痛", "写清洁工、贴胶带女孩和机组的具体动作，让抽象财富显出劳动成本", "每到情绪转折都直接总结‘他因失恋而无比痛苦’"],
+    id: "q15", section: "society", type: "multiple", points: 4,
+    prompt: "综合全文，叙述者对女方的情感包含哪些互相冲突的成分？（多选）",
+    options: ["长期投射与怀念", "用资源满足和控制关系的倾向", "失去后的遗憾与反事实追问", "迟来的自我审视", "贯穿全文且毫无变化的单一仇恨"],
     answer: [0, 1, 2, 3],
-    explanation: "前四项分别对应数字锚定、克制白描、物件回调和具象劳动；第五项用概念替读者完成感受，与本文的留白方式相反。",
+    explanation: "人物情感由怀念、占有、恐惧、遗憾和自省交织而成。用单一仇恨概括，会漏掉叙述中的迟疑和自我暴露。",
   },
   {
-    id: "q22", section: "multiple", type: "multiple", points: 5,
-    prompt: "下列哪些细节共同支持叙述者兼有怀念、控制、遗憾与自我审视？（多选）",
-    options: ["保存十九年的 QQ 图片", "长期保留四十多页调查材料", "反复追问如果给钱她会不会留下", "承认自己的指甲至今仍会磨人", "关键电话后立刻删除全部记录"],
+    id: "q16", section: "ai", type: "single", points: 5,
+    prompt: "Claude 在五千万美元的决定中承担了什么叙事功能？",
+    options: ["替叙述者完成法律审判", "提供毫不迟疑的外部声音，促成拒绝并制造人与机器的对照", "证明女方已经不再爱他", "自动向女方发送拒绝消息"],
+    answer: [1],
+    explanation: "Claude 的确定性压过了人的迟疑，却没有替叙述者说出口。决定、沉默和后果仍由人物承担。",
+  },
+  {
+    id: "q17", section: "ai", type: "multiple", points: 5,
+    prompt: "把亲密关系中的重大决定交给 AI，会引出哪些问题？（多选）",
+    options: ["模型依据谁提供的事实和价值标准", "建议是否被当成逃避责任的工具", "财务上可承受是否等于关系中应该支付", "机器语气坚定是否代表结论必然正确", "AI 输出可以自动免除使用者的责任"],
+    answer: [0, 1, 2],
+    explanation: "输入、价值标准和责任归属都需要追问。坚定语气不等于真理，采纳建议的人仍要承担选择后果。",
+  },
+  {
+    id: "q18", section: "ai", type: "multiple", points: 5,
+    prompt: "若要判断这篇文章是否由 AI 生成，哪些证据比“读起来像 AI”更可靠？（多选）",
+    options: ["文档版本历史与修改轨迹", "作者公开说明和可核验的创作材料", "生成工具或平台留下的元数据", "仅凭句子流畅、数字很多就下结论", "因为出现 Claude 就认定全文由 Claude 写成"],
+    answer: [0, 1, 2],
+    explanation: "风格只能提供弱线索。版本记录、创作材料、作者说明和技术元数据更接近可核验的证据链。",
+  },
+  {
+    id: "q19", section: "ai", type: "multiple", points: 5,
+    prompt: "阅读这篇虚构文本时，哪些边界必须保留？（多选）",
+    options: ["区分文本事实、合理推断与现实事实", "区分叙述者形象与现实人物", "称谓、情节和商业符号都要放回语境", "用一道细节判断现实人物违法", "把文学表达当成现实关系的口供"],
+    answer: [0, 1, 2],
+    explanation: "文本可以承载现实联想，结论仍需证据等级。文学叙述不能直接充当身份、违法或现实关系的证明。",
+  },
+  {
+    id: "q20", section: "business", type: "single", points: 5,
+    prompt: "一篇文章突然刷屏后，通常最先、也最容易观察到的“上涨”是什么？",
+    options: ["关键词搜索量、社交讨论度与页面访问量", "相关上市公司的长期利润", "大型游戏公司的整体收入", "所有同名资产的内在价值"],
+    answer: [0],
+    explanation: "传播先改变注意力指标。销量、利润、股价和长期价值需要更多转化环节，不能由热搜直接推出。",
+  },
+  {
+    id: "q21", section: "business", type: "single", points: 5,
+    prompt: "假设市场上突然出现未经当事人背书的“景甜币”，哪项判断最严谨？",
+    options: ["名字进入热搜就保证长期上涨", "低流动性与迷因叙事可能放大短期波动，同时伴随极高风险和归零可能", "它天然代表文章版权", "它与人物同名，所以必然得到官方认可"],
+    answer: [1],
+    explanation: "同名、热度和授权是三件不同的事。低流动性资产可能对流量极敏感，波动速度不能证明价值、权利或背书。",
+  },
+  {
+    id: "q22", section: "business", type: "single", points: 5,
+    prompt: "若只比较文章提供的传播钩子，张小泉修甲产品与腾讯游戏哪一个更容易做出直接借势内容？",
+    options: ["张小泉修甲产品，因为“顺着一个方向磨”和结尾指甲回调能连接具体使用场景", "腾讯游戏，因为文中出现 QQ 就等于出现游戏消费", "两者都已得到文中人物授权", "两者都会因此获得同等收入增长"],
+    answer: [0],
+    explanation: "修甲工具与文本物件线索的距离更短；腾讯游戏没有直接进入故事。即使关联较近，品牌传播仍需处理授权、语境和实际转化。",
+  },
+  {
+    id: "q23", section: "business", type: "multiple", points: 5,
+    prompt: "若要证明文章推动了某家上市公司的股价，至少需要哪些证据？（多选）",
+    options: ["明确事件窗口并比较大盘和同行表现", "观察异常成交量及价格变化", "核验搜索、销售或官方营销是否形成转化", "评估相关业务对公司收入是否足够重要", "只截一张上涨分时图"],
     answer: [0, 1, 2, 3],
-    explanation: "四个细节分别触及怀念、控制、反事实遗憾和迟来的自我审视；文中没有立即删除全部记录。",
+    explanation: "股价受多重因素影响。事件窗口、基准比较、成交数据、业务转化和重要性共同构成较完整的因果证据；单张截图容易误导。",
   },
   {
-    id: "q23", section: "multiple", type: "multiple", points: 5,
-    prompt: "关于 AI 在文中的作用，下列分析合理的有哪些？（多选）",
-    options: ["把财务上可承受的问题转为是否应当支付的判断", "用机器的确定性反衬人的迟疑", "引出借助技术转移决定责任的疑问", "证明 AI 完全理解爱情", "证明拒绝在道德上绝对正确"],
-    answer: [0, 1, 2],
-    explanation: "AI 推动决定、制造对照并引出责任讨论；文本没有证明它理解爱情，也没有给出绝对道德裁决。",
-  },
-  {
-    id: "q24", section: "multiple", type: "multiple", points: 5,
-    prompt: "阅读这篇虚构文本时，哪些方法更可靠？（多选）",
-    options: ["区分文本事实、合理推断与现实判断", "把“妈妈”放回称谓变化和具体语境中分析", "追踪空房、劳动和残留物之间的结构联系", "凭单一细节断定现实作者的真实动机", "把叙述者等同于现实中的任何人物"],
-    answer: [0, 1, 2],
-    explanation: "可靠阅读需要证据链和语境，并明确虚构文本与现实判断之间的边界。",
+    id: "q24", section: "business", type: "multiple", points: 5,
+    prompt: "从“文章刷屏”推到“商业价值”，下列路径判断合理的有哪些？（多选）",
+    options: ["搜索与讨论热度通常最先变化", "有文本钩子的消费品可能通过合规借势获得转化", "同名迷因币可能波动最剧烈，也可能最快归零", "腾讯游戏等大型业务需要更直接的产品联动才可能产生可测影响", "文章热度可以保证任何相关资产上涨"],
+    answer: [0, 1, 2, 3],
+    explanation: "注意力、产品转化、资产价格和长期价值属于不同层级。越往后，所需证据越强；高波动也意味着高风险。",
   },
 ];
 
-const STORAGE_KEY = "sun-reading-quiz-v1";
+const STORAGE_KEY = "sun-reading-quiz-v2";
+const MAX_SCORE = questions.reduce((sum, question) => sum + question.points, 0);
+if (MAX_SCORE !== 100) throw new Error(`题目总分应为 100，当前为 ${MAX_SCORE}`);
 const printMode = new URLSearchParams(window.location.search).get("print") === "1";
 const answers = loadAnswers();
 const intro = document.querySelector("#intro");
@@ -244,7 +252,7 @@ function questionCardHTML(question, number, focusable = false) {
       </label>`;
   }).join("");
   return `
-    <article class="question-card" role="group" ${focusable ? 'tabindex="-1"' : ""} aria-labelledby="prompt-${question.id}" data-question-id="${question.id}">
+    <article class="question-card question-${question.type}" role="group" ${focusable ? 'tabindex="-1"' : ""} aria-labelledby="prompt-${question.id}" data-question-id="${question.id}">
       <div class="question-number">
         <span>QUESTION ${String(number).padStart(2, "0")}</span>
         <span class="question-points">${question.points} 分</span>
@@ -281,7 +289,7 @@ function renderCurrentQuestion(focus = false) {
     <section class="question-stage" aria-live="polite">
       <header class="stage-header">
         <div>
-          <p class="stage-section">${section.numeral} · ${section.title}</p>
+          <p class="stage-section">第 ${sections.indexOf(section) + 1} 层 / ${sections.length} · ${section.numeral} · ${section.title}</p>
           <p>${escapeHTML(section.description)}</p>
         </div>
         <strong>${String(currentQuestionIndex + 1).padStart(2, "0")} <span>/ ${questions.length}</span></strong>
@@ -306,6 +314,10 @@ function renderQuestions(focus = false) {
     return;
   }
   renderCurrentQuestion(focus);
+}
+
+function returnToQuestionTop() {
+  requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
 
 function renderPrintAnswers() {
@@ -376,11 +388,11 @@ function gradeQuiz() {
 }
 
 function resultTier(score) {
-  if (score >= 90) return ["孙哥叙事首席解码员", "你连沉默的重量都读到了。价格、空房、胶痕、心跳和 AI 决策，在你这里已经连成一条凌晨三点的海岸线。"];
-  if (score >= 75) return ["孙学研究员", "你读懂了大部分回声，也看见了热闹散去以后留下的房间。再留意称谓和劳动线索，就能抵达更深的一层。"];
-  if (score >= 60) return ["文本侦探", "你抓住了故事主干，也开始听见物件与重复句的暗线。有些沉默还藏在数字后面，值得再看一遍。"];
-  if (score >= 40) return ["维港夜行人", "名场面已经记住，凌晨的风还没有完全吹进来。试着从谁在劳动、谁在沉默、谁在决定重新读。"];
-  return ["刚刷到孙哥", "海、飞机和五千万还散落在夜色里。先读原文，再来一次，也许下一次会听见那十一秒的安静。"];
+  if (score >= 90) return ["孙哥叙事首席解码员", "你从事件证据走到了商业传播：数字、沉默、劳动、AI 决策与注意力市场已经连成完整链条。"];
+  if (score >= 75) return ["孙学研究员", "你读懂了大部分结构，也能区分热度、转化和价值。再检查修辞与因果证据，就能抵达最后一层。"];
+  if (score >= 60) return ["文本侦探", "你抓住了故事主干和人物矛盾。数字背后的劳动、AI 责任与商业转化仍值得再推一步。"];
+  if (score >= 40) return ["维港夜行人", "名场面已经记住，事件与解释还需要分开。沿着五层题组重新走一遍，会看见更多隐线。"];
+  return ["刚刷到孙哥", "海、飞机、五千万和商业符号还散落在夜色里。先找事实，再判断修辞、人物与价值。"];
 }
 
 function optionLabels(indices) {
@@ -393,7 +405,10 @@ function renderResults(grade) {
   document.querySelector("#result-level").textContent = level;
   document.querySelector("#result-description").textContent = description;
 
-  const sectionMax = { detail: 32, craft: 24, theme: 24, multiple: 20 };
+  const sectionMax = Object.fromEntries(sections.map((section) => [
+    section.id,
+    questions.filter((question) => question.section === section.id).reduce((sum, question) => sum + question.points, 0),
+  ]));
   document.querySelector("#score-breakdown").innerHTML = sections.map((section) => `
     <div class="breakdown-item">
       <span>${section.numeral} · ${section.title}</span>
@@ -437,11 +452,13 @@ sectionRoot.addEventListener("click", (event) => {
     currentQuestionIndex -= 1;
     renderQuestions(true);
     updateProgress();
+    returnToQuestionTop();
   }
   if (action === "next" && currentQuestionIndex < questions.length - 1) {
     currentQuestionIndex += 1;
     renderQuestions(true);
     updateProgress();
+    returnToQuestionTop();
   }
   if (action === "submit") form.requestSubmit();
 });

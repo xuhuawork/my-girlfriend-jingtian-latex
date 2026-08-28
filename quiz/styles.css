@@ -1345,6 +1345,10 @@ footer {
     margin-top: 3mm;
   }
 
+  .question-multiple .choice-list {
+    grid-template-columns: 1fr;
+  }
+
   .choice {
     grid-template-columns: 6mm minmax(0, 1fr);
     gap: 2mm;
@@ -1364,10 +1368,6 @@ footer {
     color: #171719;
     font-size: 8.5pt;
     line-height: 1.55;
-  }
-
-  .question-section:last-child .choice-list {
-    grid-template-columns: 1fr;
   }
 
   .print-answer-key {
